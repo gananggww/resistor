@@ -5,7 +5,7 @@ MAINTAINER Ganang Wahyu Wicaksono gananggww@gmail.com
 # installation basic lib
 RUN go get github.com/astaxie/beego && go get github.com/beego/bee
 RUN go get -u github.com/golang/dep/cmd/dep
-RUN bee migrate -driver="postgres" -conn="postgres://postgres:postgres@127.0.0.1:5432/resistan" -dir="database/migrations"
+# RUN bee migrate -driver="postgres" -conn="postgres://postgres:postgres@127.0.0.1:5432/resistan" -dir="database/migrations"
 
 # no C compile 
 RUN CGO_ENABLED=0 go install -a std
@@ -31,4 +31,5 @@ RUN CGO_ENABLED=0 go build -ldflags '-d -w -s'
 EXPOSE 8080
 
 # run the program
+CMD ['bee migrate -driver="postgres" -conn="postgres://postgres:postgres@127.0.0.1:5432/resistan" -dir="database/migrations"']
 CMD ["./resistor"]
